@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Anna",
+      "friends": [
+        { "id": 2, "name": "Marco" },
+        { "id": 3, "name": "Pinco" }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Marco",
+      "friends": [
+        { "id": 1, "name": "Anna" },
+        { "id": 3, "name": "Pinco" }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Pinco",
+      "friends": [
+        { "id": 2, "name": "Marco" },
+        { "id": 1, "name": "Anna" }
+      ]
+    }
+  ]
+}
