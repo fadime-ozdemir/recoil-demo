@@ -1,5 +1,6 @@
 import {
   atom,
+  atomFamily,
   selector,
   selectorFamily,
   waitForAll,
@@ -122,6 +123,63 @@ const friendsInfoQuery = selector({
   },
 });
 
+async function myFetchCurrentCatID() {
+  try {
+    const r = await fetch("http://localhost:3000/cats?id=1");
+    const data = await r.json();
+    return data?.[0]?.id;
+  } catch (e) {
+    return console.log(e);
+  }
+}
+const currentCatIDState = atom({
+  key: "CurrentCatID",
+  default: myFetchCurrentCatID(),
+});
+
+async function myFetchCatInfo(id) {
+  try {
+    const r = await fetch("http://localhost:3000/cats?id=" + id);
+    const data = await r.json();
+    return data;
+  } catch (e) {
+    return console.log(e);
+  }
+}
+
+const CatInfoState = atom({
+  key: "CatInfo",
+  default: selector({
+    key: "CatInfo/Default",
+    get: ({ get }) => myFetchCatInfo(get(currentCatIDState)),
+  }),
+});
+
+// const CatInfoState = atomFamily({
+//   key: "CatInfo",
+//   default: (id) => myFetchCatInfo(id),
+// });
+
+// const CatInfoState = atomFamily({
+//   key: "CatInfo",
+//   default: selectorFamily({
+//     key: "CatInfo/Default",
+//     get:
+//       (id) =>
+//       ({ get }) =>
+//         myFetchCatInfo(id, get(paramsState)),
+//   }),
+// });
+const catNameQuery = selectorFamily({
+  key: "CatInfoQuery",
+  get: (id) => async () => {
+    const response = await myFetchCatInfo({ id });
+    if (response.error) {
+      throw response.error;
+    }
+    return response?.[0];
+  },
+});
 const store = {
   todoList: todoListState,
   filters: todoListFilterState,
@@ -131,6 +189,9 @@ const store = {
   userInfo: userInfoQuery,
   friendsInfo: friendsInfoQuery,
   userID: currentUserIDState,
+  currentCatID: currentCatIDState,
+  catInfo: CatInfoState,
+  catName: (id) => catNameQuery(id),
 };
 
 export default store;

@@ -1,5 +1,6 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
+import CurrentCatInfo from "../components/currentCatInfo";
 import TodoItem from "../components/todoItem";
 import TodoItemCreator from "../components/todoItemCreator";
 import TodoListFilters from "../components/todoListFilters";
@@ -20,6 +21,8 @@ function TodoList() {
       {todoList.map((todoItem) => (
         <TodoItem key={todoItem.id} item={todoItem} />
       ))}
+
+      <CurrentCatInfo />
     </>
   );
 }

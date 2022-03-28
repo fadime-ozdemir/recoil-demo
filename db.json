@@ -24,5 +24,31 @@
         { "id": 1, "name": "Anna" }
       ]
     }
+  ],
+  "cats": [
+    {
+      "id": 1,
+      "name": "Niyanta",
+      "friends": [
+        { "id": 2, "name": "Black" },
+        { "id": 3, "name": "Arancio" }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Black",
+      "friends": [
+        { "id": 1, "name": "Niyanta" },
+        { "id": 3, "name": "Arancio" }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Arancio",
+      "friends": [
+        { "id": 2, "name": "Black" },
+        { "id": 1, "name": "Niyanta" }
+      ]
+    }
   ]
 }
